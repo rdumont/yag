@@ -3,6 +3,7 @@ import path from 'path'
 import chalk from 'chalk'
 import readline from 'readline-sync'
 import bump from './bump'
+import diff from './diff'
 import exec from './exec'
 import log from './logger'
 
@@ -21,7 +22,8 @@ export default (type, options) => {
   let pkg = JSON.parse(oldPackageFile)
   let currentVersion = pkg.version
   let newVersion = bump(currentVersion, type, options)
-  log.info(`Bumping from ${hightlight(currentVersion)} to ${hightlight(newVersion)}`)
+  let [from, to] = diff(currentVersion, newVersion)
+  log.info(`Bumping from ${chalk.gray(from)} to ${chalk.gray(to)}`)
 
   if (confirm('Patch package.json file?', options)) {
     log.info('Aborting...')

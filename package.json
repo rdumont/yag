@@ -1,6 +1,6 @@
 {
   "name": "yag",
-  "version": "0.1.0-beta.0",
+  "version": "0.1.0-beta.1",
   "description": "Yet Another Git-tag-version-release-tool",
   "bin": {
     "yag": "./lib/cli.js"

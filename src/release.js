@@ -8,6 +8,7 @@ import log from './logger'
 
 const confirm = (question, options) => {
   if (options.unattended) {
+    log.info(question + '[y/n]: y')
     return true
   }
   process.stdout.write(chalk.green('yag') + ': ')

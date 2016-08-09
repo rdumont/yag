@@ -1,8 +1,10 @@
 {
   "name": "yag",
-  "version": "0.1.0-beta",
+  "version": "0.1.0-beta.0",
   "description": "Yet Another Git-tag-version-release-tool",
-  "bin": "./lib/cli.js",
+  "bin": {
+    "yag": "./lib/cli.js"
+  },
   "main": "./lib/index.js",
   "scripts": {
     "test": "mocha --compilers js:babel-core/register",

@@ -1,6 +1,8 @@
 # yag
 Yet Another Git-tag-version-release-tool
 
+Because calling it yagtvrt would be a bit too much, right? 
+
 ## Use case
 
 This tool is meant for making releases of repositories that use Git version

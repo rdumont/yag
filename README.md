@@ -69,6 +69,26 @@ The accepted options are 'tag', 'stable' and 'unattended' (for `-y`)
 
 ## Notes
 
+### Scripts
+
+You can define hook scripts in your `package.json` that will be called by `yag`:
+
+#### `prerelease`
+Will be called before anything is done, even before updating the version.
+
+**Use case**: run tests to ensure that you are releasing a working version.
+
+#### `onrelease`
+Will be called after patching the `package.js` file, but before committing.
+
+**Use case**: update some other file according to the new version and put it
+in the same commit.
+
+#### `postrelease`
+Will be called at the end, after pushing the changes.
+
+**Use case**: publish an NPM package for the new release. 
+
 ### Default increment types
 
 When the current version is a pre-release, the default increment will be `pre`.

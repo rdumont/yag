@@ -16,6 +16,12 @@ const confirm = (question, options) => {
   return !readline.keyInYN(question)
 }
 
+const runScript = (key, pkg) => {
+  if (pkg.scripts && pkg.scripts[key]) {
+    exec(`npm run ${key}`)
+  }
+}
+
 export default (type, options) => {
   let packagePath = findPackageJson()
   let oldPackageFile = fs.readFileSync(packagePath, 'utf8')
@@ -23,8 +29,10 @@ export default (type, options) => {
   let currentVersion = pkg.version
   let newVersion = bump(currentVersion, type, options)
   let [from, to] = diff(currentVersion, newVersion)
-  log.info(`Bumping from ${chalk.gray(from)} to ${chalk.gray(to)}`)
 
+  runScript('prerelease', pkg)
+
+  log.info(`Bumping from ${chalk.gray(from)} to ${chalk.gray(to)}`)
   if (confirm('Patch package.json file?', options)) {
     log.info('Aborting...')
     return 0
@@ -33,6 +41,8 @@ export default (type, options) => {
   log.info(`Patching ${chalk.cyan('package.json')} with version ${chalk.cyan(newVersion)}`)
   pkg.version = newVersion
   fs.writeFileSync(packagePath, JSON.stringify(pkg, null, 2))
+
+  runScript('onrelease', pkg)
 
   if (confirm('Commit changes and apply tag?', options)) {
     log.info('Aborting...')
@@ -55,9 +65,9 @@ export default (type, options) => {
   }
 
   exec(`git push origin master ${tagName}`)
-}
 
-const hightlight = chalk.yellow.inverse
+  runScript('postrelease', pkg)
+}
 
 const findPackageJson = () => {
   let currentPath = ''

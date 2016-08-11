@@ -11,7 +11,9 @@
     "build": "rimraf lib && babel src --out-dir lib",
     "watch": "babel src --out-dir lib --watch",
     "prepublish": "rimraf lib && babel src --out-dir lib",
-    "lint": "eslint src"
+    "lint": "eslint src",
+    "prerelease": "npm build && npm test",
+    "postrelease": "npm publish"
   },
   "keywords": [
     "deploy",

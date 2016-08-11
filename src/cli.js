@@ -29,10 +29,10 @@ ${chalk.bold('Options')}
 `)
 } else if (args.v || args.version) {
   console.log(`YAG v${pkg.version}\n`)
+} else {
+  release(args._[0], {
+    stable: args.s || args.stable,
+    tag: args.t || args.tag,
+    unattended: args.y,
+  })
 }
-
-release(args._[0], {
-  stable: args.s || args.stable,
-  tag: args.t || args.tag,
-  unattended: args.y,
-})
